@@ -5,6 +5,8 @@ This is a simple and practical example on docker basics.
 Be mindful that none of the details explored here are production ready, this project is simply
 to introduce docker as a containerization tool.
 
+To get some basic information on Docker, visit [this project's Wiki](https://github.com/PedroCruz98/docker-for-dummies/wiki)!
+
 ## Events4All
 
 ```EventsApplication``` is a simple event management app with three different endpoints:
