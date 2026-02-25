@@ -5,8 +5,10 @@ This is a simple example of some docker basics, so you can start working with it
 ```EventsApplication``` is a simple event management app with three different endpoints:
 
 <details>
-  <summary>1. <code>POST /api/v1/event-management/create</code></summary>
-Endpoint used to create a new Event.
+  <summary>
+    <b>1. Create a new Event</b><br>
+    &nbsp;&nbsp;&nbsp;<code>POST /api/v1/event-management/create</code><br>&nbsp;
+  </summary>
 
 Request example:
 ``` bash
@@ -34,8 +36,10 @@ Response Example:
 ```
 </details>
 <details>
-  <summary>2. <code>GET&nbsp; /api/v1/event-management/list-all</code></summary>
-Endpoint used to fetch all events.
+  <summary>
+    <b>2. Fetch All Events</b><br>
+    &nbsp;&nbsp;&nbsp;<code>GET&nbsp; /api/v1/event-management/list-all</code><br>&nbsp;
+  </summary>
 
 Request example:
 ``` bash
@@ -65,8 +69,10 @@ Response Example:
   ```
 </details>
 <details>
-  <summary>3. <code>GET&nbsp; /api/v1/event-management/list-by-responsible/{responsible}</code></summary>
-Endpoint used to fetch all events from one given person.
+  <summary>
+    <b>3. Fetch Events From a Responsible</b><br>
+    &nbsp;&nbsp;&nbsp;<code>GET&nbsp; /api/v1/event-management/list-by-responsible/{responsible}</code><br>&nbsp;
+  </summary>
 
 Request example:
 ``` bash
