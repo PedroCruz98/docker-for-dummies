@@ -138,6 +138,7 @@ We need to change two things:
 ### Setting up a Database Container
 
 For our example we have the following database setup:
+
 **`DockerfileDatabase`**
 ```Dockerfile
 FROM gvenzl/oracle-free:23
@@ -159,18 +160,40 @@ Running the created image:
 docker run -p 1521:1521 demo-database
 ```
 
-### connected app yaml
+### Application Image Changes
 
-**`DockerfileSingleApp`**
+Our application connects to an Oracle database when ran on profile `oracle`.  
+Additionally, we need to also set up some environment variables _(just for demonstration
+purposes, don't do this in your real-world applications)_ that will configure the database
+connection.
+
+The final resul is as shown below:
+
+**`DockerfileDatabaseApplication`**
 ```dockerfile
 FROM amazoncorretto:17-alpine
-
 WORKDIR /app
-COPY build/libs/events-0.0.1-SNAPSHOT.jar application.jar
+
+ENV APP_USER=myuser
+ENV APP_USER_PASSWORD=mypassword
+ENV DATABASE_PORT=1521
+
+COPY /build/libs/events-0.0.1-SNAPSHOT.jar application.jar
 EXPOSE 8080
 
 ENTRYPOINT ["java", "-jar", "/app/application.jar", "--spring.profiles.active=oracle"]
 ```
 
+You should know the drill by now!
+
+Set up the image _(based on `DockerfileDatabaseApplication`)_:
+```bash
+docker build -t coupledapp:latest -f DockerfileDatabaseApplication .
+```
+
+Run the created image:
+```bash
+docker run -p 8080:8080 coupledapp:latest
+```
 
 ## One File to Rule them All
