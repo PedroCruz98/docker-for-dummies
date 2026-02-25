@@ -162,7 +162,8 @@ docker run -p 1521:1521 demo-database
 
 ### Application Image Changes
 
-Our application connects to an Oracle database when ran on profile `oracle`.  
+Our application connects to an Oracle database when ran on profile `oracle`.
+
 Additionally, we need to also set up some environment variables _(just for demonstration
 purposes, don't do this in your real-world applications)_ that will configure the database
 connection.
