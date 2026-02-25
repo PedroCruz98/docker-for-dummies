@@ -101,7 +101,7 @@ WORKDIR /app
 COPY build/libs/events-0.0.1-SNAPSHOT.jar application.jar
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "/app/application.jar", "--spring.profiles.active=in-memory"]
+ENTRYPOINT ["java", "-jar", "/app/application.jar", "--spring.profiles.active=memory"]
 ```
 
 Setting up the image _(based on `DockerfileSingleApp`)_:
