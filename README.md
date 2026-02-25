@@ -102,9 +102,12 @@ Response Example:
 
 ## Running it as a Single Component
 
-This version of the application runs without any database, thus being a single component app.
+To run the application without the use of any external database
+the profile must be set to `memory`.  
+The following file is used to create an image of this application
+that runs as a _Single Component Application_.
 
-**`DockerfileApplication`**
+**`DockerfileSingleApplication`**
 ```dockerfile
 FROM amazoncorretto:17-alpine
 
@@ -115,21 +118,26 @@ EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "/app/application.jar", "--spring.profiles.active=memory"]
 ```
 
-Setting up the image _(based on `DockerfileSingleApp`)_:
+Setting up the image _(based on `DockerfileSingleApplication`)_:
 ```bash
-docker build -t sampleapp:latest -f DockerfileApplication .
+docker build -t singleapp:latest -f DockerfileSingleApplication .
 ```
 
 Running the created image:
 ```bash
-docker run -p 8080:8080 sampleapp:latest
+docker run -p 8080:8080 singleapp:latest
 ```
 
-## Setting up a Database Container
+## Small changes to Connect them All
 
-Temos o ficheiro da base de dados preparado já
+Let's now make the application connect to a containerized database.  
+We need to change two things:
+# Set up a Database Container
+# Change and Run the Application Image  
 
+### Setting up a Database Container
 
+For our example we have the following database setup:
 **`DockerfileDatabase`**
 ```Dockerfile
 FROM gvenzl/oracle-free:23
@@ -141,15 +149,28 @@ ENV APP_USER_PASSWORD=mypassword
 EXPOSE 1521
 ```
 
-Correr 
+Just as we did previously, we can now create this database's image:
 ``` bash
-docker build -t oracle-db:23 -f DockerfileDatabase .
+docker build -t demo-database -f DockerfileDatabase .
 ```
 
+Running the created image:
+```bash
+docker run -p 1521:1521 demo-database
+```
 
-## Small changes to Connect them All
+### connected app yaml
 
-???adjksdsajnkadsnjkadsjn???
+**`DockerfileSingleApp`**
+```dockerfile
+FROM amazoncorretto:17-alpine
+
+WORKDIR /app
+COPY build/libs/events-0.0.1-SNAPSHOT.jar application.jar
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "/app/application.jar", "--spring.profiles.active=oracle"]
+```
 
 
 ## One File to Rule them All

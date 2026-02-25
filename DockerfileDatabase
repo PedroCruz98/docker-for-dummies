@@ -1,6 +1,6 @@
 FROM gvenzl/oracle-free:23
 
-ENV ORACLE_PASSWORD=oracle123
+ENV ORACLE_PASSWORD=mypassword
 ENV APP_USER=myuser
 ENV APP_USER_PASSWORD=mypassword
 
