@@ -10,7 +10,7 @@ This is a simple example of some docker basics, so you can start working with it
     &nbsp;&nbsp;&nbsp;<code>POST /api/v1/event-management/create</code><br>&nbsp;
   </summary>
 
-Request example:
+Request Example:
 ``` bash
 curl -X POST http://localhost:8080/api/v1/event-management/create \
 -H "Content-Type: application/json" \
@@ -41,7 +41,7 @@ Response Example:
     &nbsp;&nbsp;&nbsp;<code>GET&nbsp; /api/v1/event-management/list-all</code><br>&nbsp;
   </summary>
 
-Request example:
+Request:
 ``` bash
 curl http://localhost:8080/api/v1/event-management/list-all'
 ```
@@ -74,7 +74,7 @@ Response Example:
     &nbsp;&nbsp;&nbsp;<code>GET&nbsp; /api/v1/event-management/list-by-responsible/{responsible}</code><br>&nbsp;
   </summary>
 
-Request example:
+Request Example:
 ``` bash
 curl http://localhost:8080/api/v1/event-management/list-by-responsible/PCruz'
 ```
