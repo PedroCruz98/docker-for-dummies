@@ -132,8 +132,8 @@ docker run -p 8080:8080 singleapp:latest
 
 Let's now make the application connect to a containerized database.  
 We need to change two things:
-# Set up a Database Container
-# Change and Run the Application Image  
+1. Set up a Database Container
+2. Change and Run the Application Image  
 
 ### Setting up a Database Container
 
