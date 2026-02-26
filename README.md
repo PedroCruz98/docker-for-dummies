@@ -50,7 +50,7 @@ Response Example:
 
 Request:
 ``` bash
-curl http://localhost:8080/api/v1/event-management/list-all'
+curl http://localhost:8080/api/v1/event-management/list-all
 ```
 
 Response Example:
@@ -83,7 +83,7 @@ Response Example:
 
 Request Example:
 ``` bash
-curl http://localhost:8080/api/v1/event-management/list-by-responsible/PCruz'
+curl http://localhost:8080/api/v1/event-management/list-by-responsible/PCruz
 ```
 
 Response Example:
@@ -200,3 +200,41 @@ docker run -p 8080:8080 coupledapp:latest
 ```
 
 ## One File to Rule them All
+
+There's a tool that offers the possibility of configuring several components in a single file: `docker compose`.
+
+So you can have an example, we have what would be a possible valid configuration of our two components.
+To know more about how we ended up with it*, or more about the tool itself,* we recommend you to read our [wiki](https://github.com/PedroCruz98/docker-for-dummies/wiki)!
+
+```yaml
+# docker-compose.yaml
+
+services:
+  oracle-db:
+    image: gvenzl/oracle-free:23
+    container_name: database
+    environment:
+      ORACLE_PASSWORD: ${ORACLE_PASSWORD}
+      APP_USER: ${APP_USER}
+      APP_USER_PASSWORD: ${APP_USER_PASSWORD}
+    ports:
+      - "${DB_PORT}:1521"
+    volumes:
+      - oracle-data:/opt/oracle/oradata
+      - ./init.sql:/container-entrypoint-initdb.d/init.sql
+
+  java-app:
+    image: compose-server:latest
+    container_name: server
+    environment:
+      APP_USER: ${APP_USER}
+      APP_USER_PASSWORD: ${APP_USER_PASSWORD}
+      DATABASE_PORT: ${DB_PORT}
+    ports:
+      - "${JAVA_APP_PORT}:8080"
+    depends_on:
+      - oracle-db
+
+volumes:
+  oracle-data:
+```
