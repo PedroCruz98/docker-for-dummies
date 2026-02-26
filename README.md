@@ -141,7 +141,7 @@ We need to change two things:
 
 For our example we have the following database setup:
 
-**`DockerfileDatabase`**
+**`DockerfileCoupledDatabase`**
 ```Dockerfile
 FROM gvenzl/oracle-free:23
 
@@ -149,12 +149,13 @@ ENV ORACLE_PASSWORD=mypassword
 ENV APP_USER=myuser
 ENV APP_USER_PASSWORD=mypassword
 
+COPY init.sql /container-entrypoint-initdb.d/
 EXPOSE 1521
 ```
 
 Just as we did previously, we can now create this database's image:
 ``` bash
-docker build -t demo-database -f DockerfileDatabase .
+docker build -t demo-database -f DockerfileCoupledDatabase .
 ```
 
 Running the created image:
@@ -172,7 +173,7 @@ connection.
 
 The final resul is as shown below:
 
-**`DockerfileDatabaseApplication`**
+**`DockerfileCoupledServer`**
 ```dockerfile
 FROM amazoncorretto:17-alpine
 WORKDIR /app
@@ -189,7 +190,7 @@ ENTRYPOINT ["java", "-jar", "/app/application.jar", "--spring.profiles.active=or
 
 You should know the drill by now!
 
-Set up the image _(based on `DockerfileDatabaseApplication`)_:
+Set up the image _(based on `DockerfileCoupledServer`)_:
 ```bash
 docker build -t coupledapp:latest -f DockerfileCoupledServer .
 ```
