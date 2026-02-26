@@ -203,8 +203,19 @@ docker run -p 8080:8080 coupledapp:latest
 
 There's a tool that offers the possibility of configuring several components in a single file: `docker compose`.
 
-So you can have an example, we have what would be a possible valid configuration of our two components.
-To know more about how we ended up with it*, or more about the tool itself,* we recommend you to read our [wiki](https://github.com/PedroCruz98/docker-for-dummies/wiki)!
+So you can have an example, we have what would be a possible valid configuration of our two components.  
+To know more about how we ended up with it *, or more about the tool itself,* we recommend you to read our [wiki](https://github.com/PedroCruz98/docker-for-dummies/wiki)!
+
+```env
+# .env
+
+ORACLE_PASSWORD=mypassword
+APP_USER=myuser
+APP_USER_PASSWORD=mypassword
+DB_PORT=1521
+JAVA_APP_PORT=8080
+DB_SERVICE=FREEPDB1
+```
 
 ```yaml
 # docker-compose.yaml
