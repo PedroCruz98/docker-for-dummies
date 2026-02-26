@@ -1,0 +1,27 @@
+services:
+  oracle-db:
+    image: compose-db:latest
+    container_name: database
+    environment:
+      ORACLE_PASSWORD: ${ORACLE_PASSWORD}
+      APP_USER: ${APP_USER}
+      APP_USER_PASSWORD: ${APP_USER_PASSWORD}
+    ports:
+      - "${DB_PORT}:1521"
+    volumes:
+      - oracle-data:/opt/oracle/oradata
+
+  java-app:
+    image: compose-server:latest
+    container_name: server
+    environment:
+      APP_USER: ${APP_USER}
+      APP_USER_PASSWORD: ${APP_USER_PASSWORD}
+      DATABASE_PORT: ${DB_PORT}
+    ports:
+      - "${JAVA_APP_PORT}:8080"
+    depends_on:
+      - oracle-db
+
+volumes:
+  oracle-data:

@@ -1,0 +1,5 @@
+FROM gvenzl/oracle-free:23
+
+COPY init.sql /container-entrypoint-initdb.d/
+
+EXPOSE 1521

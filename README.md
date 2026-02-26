@@ -191,7 +191,7 @@ You should know the drill by now!
 
 Set up the image _(based on `DockerfileDatabaseApplication`)_:
 ```bash
-docker build -t coupledapp:latest -f DockerfileDatabaseApplication .
+docker build -t coupledapp:latest -f DockerfileCoupledServer .
 ```
 
 Run the created image:
