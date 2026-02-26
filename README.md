@@ -130,7 +130,7 @@ Running the created image:
 docker run -p 8080:8080 singleapp:latest
 ```
 
-## Small changes to Connect them All
+## Connecting two Components
 
 Let's now make the application connect to a containerized database.  
 We need to change two things:
