@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface EventRepository {
 
-    Event save(Event event);
+    Event createNewEvent(Event event);
 
     List<Event> getEventsByResponsible(String responsible);
 

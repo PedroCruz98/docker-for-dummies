@@ -1,28 +1,33 @@
 services:
   oracle-db:
-    image: gvenzl/oracle-free:23
-    container_name: database
+    image: gvenzl/oracle-free:latest-arm64
     environment:
       ORACLE_PASSWORD: ${ORACLE_PASSWORD}
       APP_USER: ${APP_USER}
       APP_USER_PASSWORD: ${APP_USER_PASSWORD}
     ports:
       - "${DB_PORT}:1521"
+    healthcheck:
+      test: ["CMD", "healthcheck.sh"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
     volumes:
       - oracle-data:/opt/oracle/oradata
-      - ./init.sql:/container-entrypoint-initdb.d/init.sql
+      - ./init.sql:/container-entrypoint-initdb.d/init.sql:ro
 
-  java-app:
-    image: compose-server:latest
-    container_name: server
+  server-app:
+    image: coupledapp:latest
     environment:
-      APP_USER: ${APP_USER}
-      APP_USER_PASSWORD: ${APP_USER_PASSWORD}
-      DATABASE_PORT: ${DB_PORT}
+      SPRING_DATASOURCE_URL: jdbc:oracle:thin:@oracle-db:1521/FREEPDB1
+      SPRING_DATASOURCE_USERNAME: ${APP_USER}
+      SPRING_DATASOURCE_PASSWORD: ${APP_USER_PASSWORD}
     ports:
       - "${JAVA_APP_PORT}:8080"
     depends_on:
-      - oracle-db
+      oracle-db:
+        condition: service_healthy
 
 volumes:
   oracle-data:

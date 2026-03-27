@@ -6,6 +6,7 @@ import com.example.events4all.events.requests.create.CreateEventRequest;
 import com.example.events4all.events.requests.create.CreateEventResponse;
 import com.example.events4all.events.requests.list.ListEventsResponse;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -19,6 +20,7 @@ public class EventManager {
         this.repository = repository;
     }
 
+    @Transactional
     public CreateEventResponse createEvent(CreateEventRequest request) {
         String id = UUID.randomUUID().toString();
         Event event = new Event(
@@ -29,7 +31,7 @@ public class EventManager {
                 request.responsible(),
                 request.local()
         );
-        repository.save(event);
+        repository.createNewEvent(event);
         return new CreateEventResponse(
                 event.uuid(),
                 event.eventName(),

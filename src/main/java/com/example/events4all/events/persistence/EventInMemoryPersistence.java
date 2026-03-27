@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Repository
-@Profile("memory")
+@Profile("memory | !oracle")
 public class EventInMemoryPersistence implements EventRepository {
     private static final Logger log = LoggerFactory.getLogger(EventInMemoryPersistence.class);
     private final List<Event> events;
@@ -21,7 +21,7 @@ public class EventInMemoryPersistence implements EventRepository {
     }
 
     @Override
-    public Event save(Event event) {
+    public Event createNewEvent(Event event) {
         if (event == null) {
             log.warn("Attempted to persist a null event");
             return null;
